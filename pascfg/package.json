@@ -1,0 +1,25 @@
+{
+    "name": "pascfg",
+    "displayName": "PASCFG",
+    "description": "PAS Language Syntax",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.59.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "cfg",
+            "aliases": ["PASCFG", "cfg"],
+            "extensions": [".cfg"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "cfg",
+            "scopeName": "source.cfg",
+            "path": "./syntaxes/cfg.tmLanguage.json"
+        }]
+    }
+}

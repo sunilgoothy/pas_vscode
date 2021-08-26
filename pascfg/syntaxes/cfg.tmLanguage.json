@@ -1,0 +1,201 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "PASCFG",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#reserved-keywords"
+		},
+		{
+			"include": "#functions"
+		},	
+		{
+			"include": "#datatypes"
+		},		
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#operators"
+		},
+		{
+			"include": "#number"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.cfg",
+				"match": "(?i)\\b(IF|THEN|ELSE|ELSIF|ENDIF|LOOP|ENDLOOP|WHILE|ENDWHILE)\\b"
+			}]
+		},
+		"reserved-keywords": {
+			"patterns": [{
+				"name": "support.class.cfg",
+				"match": "(?i)\\b(DIAG_LEVEL|PORT|SELECTOR|DATA|DELAY|DEBUG|CYCLE|PORT|INTERFACE|HANDLE|MAX_DATA|BINARY|LENGTH|TYPE|RESOURCE|MSG_PID|DICTIONARY|UNITS|ZONE|ZONE_DATA|PIECE|PIECE_DATA|LOCAL|CONSTANT|GATEWAY|INCOMING|OUTGOING|DATA_OBJECT|INTERVAL|REPEATS|DATA_SOURCE|SEND_HANDLE|SUCCESS_EVENT|FAILURE_EVENT|STRUCTURE_NAME|WHERE_CLAUSE|ORDER_CLAUSE|SEND_NOW|STATEMENT|POND_NAME|RECOVERY|NORECOVERY|LAST_PIECE|FIRST_PIECE)\\b"
+			}]
+		},
+		"functions": {
+			"patterns": [{
+				"include": "#pas-functions"
+			},
+			{
+				"include": "#pas-macros"
+			},
+			{
+				"name": "support.function.cfg",
+				"match": "(?i)\\b(EVENT|I_EVENT|CD_EVENT|END_EVENT|MACRO|END_MACRO|IOSERV|END_IOSERV|TIMER|END_TIMER|SIGNAL|END_SIGNAL|ACTION|END_ACTION|POND|END_POND)\\b"
+			}]
+		},
+		"pas-functions": {
+			"patterns": [{
+				"name": "support.function.pas.cfg",
+				"match": "(?i)\\b(ASCII|DEBUG0|DEBUG1|IO_SERVER|ZONE_DIRECTOR|PIECE_DIRECTOR|GE_CLOCK|->|CREATE|INSERT|WRITE|BIND|INITIATE|DELETE|MOVE|SEND|READ)\\b"
+			}]
+		},
+		"pas-macros": {
+			"patterns": [{
+				"name": "support.function.pas.macros.cfg",
+				"match": "(?i)\\b(((P_)\\w+)|((m_)\\w+)|((if_)\\w+))\\b"
+			}]
+		},
+		"datatypes": {
+			"patterns": [{
+				"name": "entity.name.type.cfg",
+				"match":"(?i)\\b(RECORD|POINTER|ULONG|STRING|COUNT|LONG|BOOLEAN|FLOAT|GE_TIME|BIT|STRUCT|type_billet|type_daughter_billet|type_group|type_daughter_group|type_bundle|type_entry_coil|type_exit_coil|type_piece)\\b"
+			}]
+		},
+		"strings": {
+			"name": "string.quoted.double.cfg",
+			"begin": "['\"]",
+			"end": "['\"]",
+			"patterns": [
+				{
+					"name": "constant.character.escape.cfg",
+					"match": "\\\\."
+				}
+			]
+		},
+		"comments": {
+            "patterns": [{
+                "name": "comment.line.excl-sign.cfg",
+                "match": "!.*"
+            },
+			{
+                "name": "comment.line.semi-sign.cfg",
+                "match": ";.*"
+            }]
+        },
+		"operators": {
+			"match": "(?x)\n    \\b(?<!\\.)\n      (?:\n        (and | or | not | AND | OR | NOT | OK)                         (?# 1)\n        |\n        (for | if | else | await | (?:yield(?:\\s+from)?))  (?# 2)\n      )\n    (?!\\s*:)\\b\n\n    | (<< | >> | & | \\| | \\^ | ~)                          (?# 3)\n\n    | (\\*\\* | \\* | \\+ | - | % | // | / | @)                (?# 4)\n\n    | (!= | == | >= | <= | < | >)                          (?# 5)\n",
+			"captures": {
+				"1": {
+					"name": "keyword.operator.logical.cfg"
+				},
+				"2": {
+					"name": "keyword.control.flow.cfg"
+				},
+				"3": {
+					"name": "keyword.operator.bitwise.cfg"
+				},
+				"4": {
+					"name": "keyword.operator.arithmetic.cfg"
+				},
+				"5": {
+					"name": "keyword.operator.comparison.cfg"
+				}
+			}
+		},
+		"number": {
+			"name": "constant.numeric.cfg",
+			"patterns": [
+				{
+					"include": "#number-float"
+				},
+				{
+					"include": "#number-dec"
+				},
+				{
+					"include": "#number-hex"
+				},
+				{
+					"include": "#number-oct"
+				},
+				{
+					"include": "#number-bin"
+				},
+				{
+					"include": "#number-long"
+				},
+				{
+					"name": "invalid.illegal.name.cfg",
+					"match": "\\b[0-9]+\\w+"
+				}
+			]
+		},
+		"number-float": {
+			"name": "constant.numeric.float.cfg",
+			"match": "(?x)\n  (?<! \\w)(?:\n    (?:\n      \\.[0-9](?: _?[0-9] )*\n      |\n      [0-9](?: _?[0-9] )* \\. [0-9](?: _?[0-9] )*\n      |\n      [0-9](?: _?[0-9] )* \\.\n    ) (?: [eE][+-]?[0-9](?: _?[0-9] )* )?\n    |\n    [0-9](?: _?[0-9] )* (?: [eE][+-]?[0-9](?: _?[0-9] )* )\n  )([jJ])?\\b\n",
+			"captures": {
+				"1": {
+					"name": "storage.type.imaginary.number.cfg"
+				}
+			}
+		},
+		"number-dec": {
+			"name": "constant.numeric.dec.cfg",
+			"match": "(?x)\n  (?<![\\w\\.])(?:\n      [1-9](?: _?[0-9] )*\n      |\n      0+\n      |\n      [0-9](?: _?[0-9] )* ([jJ])\n      |\n      0 ([0-9]+)(?![eE\\.])\n  )\\b\n",
+			"captures": {
+				"1": {
+					"name": "storage.type.imaginary.number.cfg"
+				},
+				"2": {
+					"name": "invalid.illegal.dec.cfg"
+				}
+			}
+		},
+		"number-hex": {
+			"name": "constant.numeric.hex.cfg",
+			"match": "(?x)\n  (?<![\\w\\.])\n    (0[xX]) (_?[0-9a-fA-F])+\n  \\b\n",
+			"captures": {
+				"1": {
+					"name": "storage.type.number.cfg"
+				}
+			}
+		},
+		"number-oct": {
+			"name": "constant.numeric.oct.cfg",
+			"match": "(?x)\n  (?<![\\w\\.])\n    (0[oO]) (_?[0-7])+\n  \\b\n",
+			"captures": {
+				"1": {
+					"name": "storage.type.number.cfg"
+				}
+			}
+		},
+		"number-bin": {
+			"name": "constant.numeric.bin.cfg",
+			"match": "(?x)\n  (?<![\\w\\.])\n    (0[bB]) (_?[01])+\n  \\b\n",
+			"captures": {
+				"1": {
+					"name": "storage.type.number.cfg"
+				}
+			}
+		},
+		"number-long": {
+			"name": "constant.numeric.bin.cfg",
+			"comment": "this is to support python2 syntax for long ints",
+			"match": "(?x)\n  (?<![\\w\\.])\n    ([1-9][0-9]* | 0) ([lL])\n  \\b\n",
+			"captures": {
+				"2": {
+					"name": "storage.type.number.cfg"
+				}
+			}
+		}
+	},
+	"scopeName": "source.cfg"
+}
