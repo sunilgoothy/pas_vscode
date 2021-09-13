@@ -31,13 +31,13 @@
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.cfg",
-				"match": "(?i)\\b(IF|THEN|ELSE|ELSIF|ENDIF|LOOP|ENDLOOP|WHILE|ENDWHILE)\\b"
+				"match": "(?i)\\b(IF|THEN|ELSE|ELSIF|ENDIF|LOOP|ENDLOOP|WHILE|ENDWHILE|EVENT|I_EVENT|CD_EVENT|END_EVENT|MACRO|END_MACRO|IOSERV|END_IOSERV|TIMER|END_TIMER|SIGNAL|END_SIGNAL|ACTION|END_ACTION|POND|END_POND)\\b"
 			}]
 		},
 		"reserved-keywords": {
 			"patterns": [{
 				"name": "support.class.cfg",
-				"match": "(?i)\\b(DIAG_LEVEL|PORT|SELECTOR|DATA|DELAY|DEBUG|CYCLE|PORT|INTERFACE|HANDLE|MAX_DATA|BINARY|LENGTH|TYPE|RESOURCE|MSG_PID|DICTIONARY|UNITS|ZONE|ZONE_DATA|PIECE|PIECE_DATA|LOCAL|CONSTANT|GATEWAY|INCOMING|OUTGOING|DATA_OBJECT|INTERVAL|REPEATS|DATA_SOURCE|SEND_HANDLE|SUCCESS_EVENT|FAILURE_EVENT|STRUCTURE_NAME|WHERE_CLAUSE|ORDER_CLAUSE|SEND_NOW|STATEMENT|POND_NAME|RECOVERY|NORECOVERY|LAST_PIECE|FIRST_PIECE)\\b"
+				"match": "(?i)\\b(DIAG_LEVEL|PORT|SELECTOR|DATA|DELAY|DEBUG|CYCLE|PORT|INTERFACE|HANDLE|MAX_DATA|BINARY|LENGTH|TYPE|RESOURCE|MSG_PID|DICTIONARY|UNITS|ZONE|ZONE_DATA|PIECE|PIECE_DATA|LOCAL|CONSTANT|GATEWAY|INCOMING|OUTGOING|DATA_OBJECT|INTERVAL|REPEATS|DATA_SOURCE|SEND_HANDLE|SUCCESS_EVENT|FAILURE_EVENT|STRUCTURE_NAME|WHERE_CLAUSE|ORDER_CLAUSE|SEND_NOW|STATEMENT|POND_NAME|RECOVERY|NORECOVERY|LAST_PIECE|FIRST_PIECE|TRUE|FALSE|FOREVER|AS|Alarm_LowLow|Alarm_Low|Alarm_Normal|Alarm_HighHigh|Alarm_High|MSG_Event_Name|MSG_Event|MSG_SENDER|MSG_RCV_HANDLE|message|TRIM_LEFT|TRIM_RIGHT|TRIM_ENDS)\\b"
 			}]
 		},
 		"functions": {
@@ -45,32 +45,37 @@
 				"include": "#pas-functions"
 			},
 			{
-				"include": "#pas-macros"
+				"include": "#pas-events"
 			},
 			{
-				"name": "support.function.cfg",
-				"match": "(?i)\\b(EVENT|I_EVENT|CD_EVENT|END_EVENT|MACRO|END_MACRO|IOSERV|END_IOSERV|TIMER|END_TIMER|SIGNAL|END_SIGNAL|ACTION|END_ACTION|POND|END_POND)\\b"
+				"name": "support.function.pas.macros.cfg",
+				"match": "(?i)\\b(((zp_)\\w+)|((pp_)\\w+)|((pop_)\\w+)|((m_)\\w+)|((if_)\\w+))|((tmr_)\\w+)\\b"
 			}]
 		},
 		"pas-functions": {
 			"patterns": [{
 				"name": "support.function.pas.cfg",
-				"match": "(?i)\\b(ASCII|DEBUG0|DEBUG1|IO_SERVER|ZONE_DIRECTOR|PIECE_DIRECTOR|GE_CLOCK|->|CREATE|INSERT|WRITE|BIND|INITIATE|DELETE|MOVE|SEND|READ)\\b"
+				"match": "(?i)\\b(ASCII|NUMERIC|DEBUG0|DEBUG1|IO_SERVER|ZONE_DIRECTOR|PIECE_DIRECTOR|GE_CLOCK|STRING_DIR|ALARM|->|CREATE|INSERT|WRITE|BIND|INITIATE|DELETE|MOVE|SEND|READ|CONCATENATE|TRIM)\\b"
 			}]
 		},
-		"pas-macros": {
+		"pas-events": {
 			"patterns": [{
-				"name": "support.function.pas.macros.cfg",
-				"match": "(?i)\\b(((P_)\\w+)|((m_)\\w+)|((if_)\\w+))\\b"
+				"name": "support.function.pas.events.cfg",
+				"match": "\\b(((P_)\\w+)|((I_)\\w+))\\b"
 			}]
 		},
 		"datatypes": {
 			"patterns": [{
 				"name": "entity.name.type.cfg",
-				"match":"(?i)\\b(RECORD|POINTER|ULONG|STRING|COUNT|LONG|BOOLEAN|FLOAT|GE_TIME|BIT|STRUCT|type_billet|type_daughter_billet|type_group|type_daughter_group|type_bundle|type_entry_coil|type_exit_coil|type_piece)\\b"
+				"match":"(?i)\\b(RECORD|BLOCKMEM|POINTER|CHARACTER|STRING|COUNT|UCOUNT|LONG|ULONG|INT|DOUBLE|BOOLEAN|FLOAT|GE_TIME|BIT|STRUCT|type_billet|type_daughter_billet|type_group|type_daughter_group|type_bundle|type_entry_coil|type_exit_coil|type_piece)\\b"
 			}]
 		},
 		"strings": {
+			"name": "string.quoted.double.cfg",
+			"begin": "['\"]",
+			"end": "['\"]"
+		},
+		"strings-with-escape": {
 			"name": "string.quoted.double.cfg",
 			"begin": "['\"]",
 			"end": "['\"]",

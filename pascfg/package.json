@@ -1,8 +1,10 @@
 {
     "name": "pascfg",
     "displayName": "PASCFG",
-    "description": "PAS Language Syntax",
-    "version": "0.0.1",
+    "description": "PAS Language Syntax and Snippets",
+    "icon": "tmeic.ico",
+    "version": "0.1.0",
+    "publisher": "sunilgoothy",
     "engines": {
         "vscode": "^1.59.0"
     },
@@ -20,6 +22,10 @@
             "language": "cfg",
             "scopeName": "source.cfg",
             "path": "./syntaxes/cfg.tmLanguage.json"
-        }]
+        }],
+        "snippets": [{
+              "language": "cfg",
+              "path": "./snippets/cfg.snippets.json"
+            }]
     }
 }
