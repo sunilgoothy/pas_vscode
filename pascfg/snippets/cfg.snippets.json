@@ -12,6 +12,13 @@
 	// 	],
 	// 	"description": "Log output to console"
 	// }
+	"Debug0Std": {
+		"prefix": "dbg0",
+		"body": [
+		  "debug0->write(\"${1:DebugMessage}\") ;",
+		],
+		"description": "Debug0Std"
+	  },
 	"DebugAlarmStd": {
 		"prefix": "alarm",
 		"body": [
